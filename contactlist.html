@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Phone Book</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        caption {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 10px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        td {
+            font-size: 16px;
+        }
+
+        td img {
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        td img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        #searchInput {
+            margin: 20px auto;
+            display: block;
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search by name..." onkeyup="filterTable()">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <caption>Phone Book</caption>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Name</th>
+                    <th>Pic</th>
+                    <th>Call</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Abhilash</td>
+                    <td><img src="image/Abhilash.jpeg" alt="No image Found" height="80px" width="80px"></td>
+                    <td><a href="tel:+916370205126">Call: +91 6370205126</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Aditya</td>
+                    <td><img src="image/Aditya.jpeg" alt="No image Found" height="80px" width="80px"></td>
+                    <td><a href="tel:+917540913746">Call: +91 7540913746</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Akash</td>
+                    <td><img src="image/Akash.jpeg" alt="No image found" height="80px" width="80px"></td>
+                    <td><a href="tel:+917894816354">Call: +91 7894816354</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Hemant</td>
+                    <td><img src="image/Hemant.jpeg" alt="No image found" height="80px" width="80px"></td>
+                    <td><a href="tel:+917735102235">Call: +91 7735102235</a></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Prakash</td>
+                    <td><img src="image/Prakash.jpeg" alt="No image found" height="80px" width="80px"></td>
+                    <td><a href="tel:+917682975815">Call: +91 7682975815</a></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Sambit</td>
+                    <td><img src="image/Sambit.jpeg" alt="No image found" height="80px" width="80px"></td>
+                    <td><a href="tel:+919090761314">Call: +91 9090761314</a></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Sankalp</td>
+                    <td><img src="image/Sankalp.jpg" alt="No image found" height="80px" width="80px"></td>
+                    <td><a href="tel:+916371665430">Call: +91 6371665430</a></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Sanket</td>
+                    <td><img src="image/Sanket.jpeg" alt="No image found" height="80px" width="80px"></td>
+                    <td><a href="tel:+916372383848">Call: +91 6372383848</a></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Subhranshu</td>
+                    <td><img src="image/subhranshu.jpeg" alt="No image found" height="80px" width="80px"></td>
+                    <td><a href="tel:+916265805806">Call: +91 6265805806</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        function filterTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const table = document.querySelector('table');
+            const rows = table.querySelectorAll('tr');
+
+            rows.forEach((row, index) => {
+                if (index === 0) return; // Skip header row
+                const nameCell = row.querySelectorAll('td')[1];
+                if (nameCell) {
+                    const textValue = nameCell.textContent || nameCell.innerText;
+                    row.style.display = textValue.toLowerCase().includes(filter) ? '' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
